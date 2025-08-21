@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { NavLink } from "react-router-dom";
 import { Menu, X, Github, Linkedin, Code2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Projects", href: "/projects" },
-  { name: "Experience", href: "/experience" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Blog", href: "#blog" },
+  { name: "Contact", href: "#contact" },
 ];
+
+const scrollToSection = (href: string) => {
+  const element = document.querySelector(href);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,14 +46,17 @@ export const Navigation = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <NavLink to="/" className="flex items-center space-x-2">
+            <button
+              onClick={() => scrollToSection("#home")}
+              className="flex items-center space-x-2"
+            >
               <div className="w-10 h-10 bg-hero-gradient rounded-xl flex items-center justify-center">
                 <Code2 className="w-6 h-6 text-primary-foreground" />
               </div>
               <span className="font-sora font-bold text-xl gradient-text">
                 Hassan Shakil
               </span>
-            </NavLink>
+            </button>
           </motion.div>
 
           {/* Desktop Navigation */}
@@ -59,16 +68,12 @@ export const Navigation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <NavLink
-                  to={item.href}
-                  className={({ isActive }) =>
-                    `animated-link font-medium transition-colors ${
-                      isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                    }`
-                  }
+                <button
+                  onClick={() => scrollToSection(item.href)}
+                  className="animated-link font-medium transition-colors text-muted-foreground hover:text-foreground"
                 >
                   {item.name}
-                </NavLink>
+                </button>
               </motion.div>
             ))}
           </div>
@@ -139,19 +144,15 @@ export const Navigation = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                   >
-                    <NavLink
-                      to={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className={({ isActive }) =>
-                        `block py-2 px-4 rounded-lg transition-colors ${
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : "hover:bg-primary/10"
-                        }`
-                      }
+                    <button
+                      onClick={() => {
+                        scrollToSection(item.href);
+                        setIsOpen(false);
+                      }}
+                      className="block py-2 px-4 rounded-lg transition-colors hover:bg-primary/10 w-full text-left"
                     >
                       {item.name}
-                    </NavLink>
+                    </button>
                   </motion.div>
                 ))}
                 
