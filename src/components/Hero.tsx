@@ -4,7 +4,16 @@ import { Button } from "@/components/ui/button";
 import { ParticleBackground } from "./ParticleBackground";
 
 const techBadges = [
-  "Flutter", "Dart", "Firebase", "Supabase", "REST APIs", "GetX", "Provider", "React", "Node.js"
+  "Flutter",
+  "Dart",
+  "GetX",
+  "Provider",
+  "Firebase",
+  "Supabase",
+  "REST APIs",
+  "React",
+  "Node.js",
+  "Express",
 ];
 
 export const Hero = () => {
@@ -19,24 +28,24 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden opacity-95">
       {/* Particle Background */}
-      <ParticleBackground />
-      
+      <div className="absolute inset-0 z-0">
+        <ParticleBackground />
+      </div>
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-hero-gradient opacity-5" />
-      
+      {/* <div className="absolute inset-0 bg-hero-gradient opacity-5" /> */}
+
       <div className="container-padding relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          
           {/* Main Heading */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="mb-8"
+            className="mb-8 mt-3"
           >
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-7xl lg:text-8xl font-sora font-bold mb-6"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -45,7 +54,7 @@ export const Hero = () => {
               <span className="block text-foreground">Hassan</span>
               <span className="block gradient-text">Shakil</span>
             </motion.h1>
-            
+
             <motion.p
               className="text-xl md:text-2xl text-muted-foreground mb-4 font-medium"
               initial={{ opacity: 0, y: 20 }}
@@ -54,14 +63,29 @@ export const Hero = () => {
             >
               Flutter & Full-Stack Developer
             </motion.p>
-            
+
             <motion.p
-              className="text-lg md:text-xl text-muted-foreground mb-2"
+              className="text-lg md:text-xl text-muted-foreground mb-2 flex justify-center gap-3"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              📍 Karachi, Pakistan
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-primary"
+              >
+                <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              Karachi, Pakistan
             </motion.p>
           </motion.div>
 
@@ -78,8 +102,8 @@ export const Hero = () => {
               that scale.
             </h2>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              I design, develop, and optimize mobile experiences with Flutter and ship 
-              reliable backends with modern tooling.
+              I design, develop, and optimize mobile experiences with Flutter
+              and ship reliable backends with modern tooling.
             </p>
           </motion.div>
 
@@ -116,7 +140,9 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 1 }}
             className="mb-12"
           >
-            <p className="text-sm text-muted-foreground mb-4 font-medium">TECHNOLOGIES I WORK WITH</p>
+            <p className="text-sm text-muted-foreground mb-4 font-medium text-white">
+              TECHNOLOGIES I WORK WITH
+            </p>
             <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
               {techBadges.map((tech, index) => (
                 <motion.span
@@ -146,7 +172,7 @@ export const Hero = () => {
               className="flex flex-col items-center text-muted-foreground"
             >
               <span className="text-sm mb-2">Scroll to explore</span>
-              <ArrowDown className="w-5 h-5" />
+              <ArrowDown className="w-5 h-5 mb-2" />
             </motion.div>
           </motion.div>
         </div>

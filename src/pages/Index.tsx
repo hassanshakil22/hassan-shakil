@@ -8,6 +8,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 const Index = () => {
   return (
     <div>
+      
       <section id="home">
         <Hero />
       </section>
