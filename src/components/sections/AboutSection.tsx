@@ -15,12 +15,12 @@ const skills = {
     "Dart",
     "GetX",
     "Provider",
-    "REST APIs",
+    "REST APIs",  
     "Firebase",
     "Supabase",
   ],
   backend: ["Node.js", "Express", "Supabase", "Firebase", "REST APIs"],
-  data: ["Pandas", "NumPy", "Data Analysis"],
+  data: ["Pandas", "NumPy", "SQL" , "SnowFlake", "Data Analysis","Data Engineering"],
   tools: ["Git", "CI/CD", "GitHub Actions", "VS Code"],
 };
 
@@ -43,7 +43,7 @@ export function AboutSection() {
   return (
     <section id="about" className="min-h-screen">
       {/* Bio Section */}
-      <div className="p-7 bg-muted/20 ">
+      <div className="p-7 bg-muted/25 ">
         <div className="">
           {/* Hero Section */}
 
@@ -72,7 +72,7 @@ export function AboutSection() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
+              viewport={{ once: true }}
               >
                 <div className="flex items-center gap-3 mb-6">
                   <Briefcase className="w-6 h-6 text-primary" />
@@ -113,7 +113,7 @@ export function AboutSection() {
                 </div>
 
                 <div className="mt-8">
-                  <Button className="btn-primary">
+                  <Button className="btn-primary"  onClick={() => window.open("H-S Resume.pdf", "_blank")}>    
                     <Download className="mr-2 w-4 h-4" />
                     Download CV
                   </Button>
@@ -190,7 +190,7 @@ export function AboutSection() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="glass-card h-full">
+                  <Card className="glass-card h-full hover:bg-primary/5">
                     <CardContent className="p-6">
                       <h4 className="text-lg font-semibold mb-4 capitalize text-primary">
                         {category === "mobile"
@@ -198,7 +198,7 @@ export function AboutSection() {
                           : category === "backend"
                           ? "Backend Development"
                           : category === "data"
-                          ? "Data & Analytics"
+                          ? "Data Science"
                           : "Tools & Workflow"}
                       </h4>
                       <div className="space-y-2">

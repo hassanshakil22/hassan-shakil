@@ -109,10 +109,8 @@ export default function Contact() {
   return (
     <div className="min-h-screen" id="contact">
       {/* Hero Section with Particles */}
-      <section className="relative section-padding overflow-hidden">
-        <ParticleBackground />
-        <div className="absolute inset-0 bg-hero-gradient opacity-5" />
-        
+      <section className="relative overflow-hidden">
+        <ParticleBackground />        
         <div className="container-padding relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -272,7 +270,7 @@ export default function Contact() {
                 </div>
 
                 {/* Social Links */}
-                <div>
+                <div className="flex">
                   <h3 className="text-2xl font-sora font-semibold mb-6">Connect Online</h3>
                   <div className="space-y-4">
                     {socialLinks.map((social, index) => (
