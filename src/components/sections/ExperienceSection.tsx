@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Briefcase, ChevronRight, Target, Users, Code } from "lucide-react";
+import { Calendar, MapPin, Briefcase, ChevronRight, Target, Users, Code,Database, Award} from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -7,7 +7,7 @@ const experience = [
   {
     company: "Halcon Systems Pvt Ltd",
     position: "Junior Flutter Developer",
-    period: "June 2025 – Present",
+    period: "June 2025 – August 2025",
     location: "Karachi, Pakistan",
     type: "Full-time",
     responsibilities: [
@@ -23,7 +23,31 @@ const experience = [
       "Improved client communication and requirement clarity by 40%"
     ],
     technologies: ["Flutter", "Dart", "REST APIs", "State Management", "UI/UX Design"]
+  },
+  {
+    company: "NEDUET CSIT Dept",
+    position: "Lead Flutter Developer / Project Manager",
+    period: "March 2025 – Present",
+    location: "Karachi, Pakistan",
+    type: "Part-Time",
+    responsibilities: [
+      "Leading frontend development of Taste-Food App",
+      "Backend development of Taste-Food App",
+      "CI-CD and Deployment of Taste-Food App",
+      "Leading frontend development of ARG Attendance App for CSIT dept",
+      "Handling A foreign client requirement gathering and analysis",
+      "Designing and implementing UI architecture patterns",
+      "Collaborating with stakeholders to define project scope and deliverables"
+    ],
+    achievements: [
+      "Successfully delivered frontend components ahead of schedule",
+      "Successfully deployed backend on NameCheap through CI-CD (github actions)",
+      "Established scalable UI architecture for future development",
+      "Improved client communication and requirement clarity by 40%"
+    ],
+    technologies: ["Flutter", "Dart", "Node" , "Express" ,"REST APIs", "Provider", "UI/UX Design"]
   }
+
 ];
 
 const featurePlaybooks = [
@@ -64,6 +88,16 @@ const careerGoals = [
     icon: Code,
     title: "Open Source",
     description: "Contributing to Flutter ecosystem and sharing knowledge with the community"
+  },
+  {
+    icon: Database,
+    title: "Data Engineer",
+    description: "Building scalable data pipelines and driving knowledge-sharing within the data community"
+  },
+  {
+    icon: Award,
+    title: "Competitve Programming",
+    description: "Sharpening problem-solving skills and fostering collaborative growth within the competitive programming community."
   }
 ];
 
@@ -202,7 +236,7 @@ export function ExperienceSection() {
         </div>
       </div>
 
-      {/* Feature Playbooks */}
+      {/* Feature Playbooks
       <div className="section-padding">
         <div className="container-padding">
           <motion.div
@@ -249,7 +283,7 @@ export function ExperienceSection() {
             </div>
           </motion.div>
         </div>
-      </div>
+      </div> */}
 
       {/* Career Goals */}
       <div className="section-padding bg-muted/20">

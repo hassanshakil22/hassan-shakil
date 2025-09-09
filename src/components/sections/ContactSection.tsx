@@ -2,8 +2,19 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldErrors } from "react-hook-form";
+
 import * as z from "zod";
-import { Mail, Phone, MapPin, Github, Linkedin, Code, Send, Clock } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  Code,
+  Send,
+  Clock,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +22,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -26,26 +38,26 @@ const contactInfo = [
     icon: Mail,
     label: "Email",
     value: "hassanshakil.workspace@gmail.com",
-    href: "mailto:hassanshakil.workspace@gmail.com"
+    href: "mailto:hassanshakil.workspace@gmail.com",
   },
   {
     icon: Phone,
     label: "Phone",
     value: "+92-305-9167616",
-    href: "tel:+923059167616"
+    href: "https://wa.me/923059167616",
   },
   {
     icon: MapPin,
     label: "Location",
     value: "Karachi, Pakistan",
-    href: "#"
+    href: "#",
   },
   {
     icon: Clock,
     label: "Timezone",
     value: "PKT (UTC+5)",
-    href: "#"
-  }
+    href: "#",
+  },
 ];
 
 const socialLinks = [
@@ -53,20 +65,20 @@ const socialLinks = [
     icon: Github,
     label: "GitHub",
     href: "https://github.com/hassanshakil22",
-    username: "hassanshakil22"
+    username: "hassanshakil22",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
     href: "https://linkedin.com/in/hassanshakil22",
-    username: "hassanshakil22"
+    username: "hassanshakil22",
   },
   {
     icon: Code,
     label: "LeetCode",
     href: "https://leetcode.com/u/hassanshakil22",
-    username: "hassanshakil22"
-  }
+    username: "hassanshakil22",
+  },
 ];
 
 export function ContactSection() {
@@ -76,26 +88,48 @@ export function ContactSection() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
+    formState: { errors },
   } = useForm<ContactForm>({
     resolver: zodResolver(contactSchema),
   });
 
+  const onError = (formErrors: FieldErrors<ContactForm>) => {
+    const firstErrorKey = Object.keys(formErrors)[0] as keyof ContactForm;
+    const firstError = formErrors[firstErrorKey];
+
+    toast({
+      title: `Error in "${firstErrorKey}" field`,
+      description: firstError?.message || "Please fix the highlighted field.",
+      variant: "destructive",
+    });
+
+    console.log("❌ Validation errors:", formErrors);
+  };
   const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
-    
-    // Simulate form submission (replace with actual email service)
+
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await emailjs.send(
+        process.env.VITE_EMAIL_JS_SERVICE_ID,
+        process.env.VITE_EMAIL_JS_TEMPLATE_ID,
+        {
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+        },
+        process.env.VITE_EMAIL_JS_PUBLIC_API_KEY
+      );
+
       toast({
         title: "Message sent successfully!",
         description: "I'll get back to you as soon as possible.",
       });
-      
-      reset();
+
+      reset(); // ✅ clears form correctly
     } catch (error) {
+      console.error("❌ EmailJS Error:", error);
       toast({
         title: "Failed to send message",
         description: "Please try again or contact me directly via email.",
@@ -112,7 +146,7 @@ export function ContactSection() {
       <div className="relative section-padding overflow-hidden">
         <ParticleBackground />
         <div className="absolute inset-0 bg-hero-gradient opacity-5" />
-        
+
         <div className="container-padding relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -125,7 +159,8 @@ export function ContactSection() {
               Let's <span className="gradient-text">Connect</span>
             </h2>
             <p className="text-xl text-muted-foreground">
-              Have a project in mind? Let's discuss how we can work together to bring your ideas to life.
+              Have a project in mind? Let's discuss how we can work together to
+              bring your ideas to life.
             </p>
           </motion.div>
         </div>
@@ -136,7 +171,6 @@ export function ContactSection() {
         <div className="container-padding">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12">
-              
               {/* Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -146,10 +180,15 @@ export function ContactSection() {
               >
                 <Card className="glass-card">
                   <CardHeader>
-                    <CardTitle className="text-2xl font-sora">Send a Message</CardTitle>
+                    <CardTitle className="text-2xl font-sora">
+                      Send a Message
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    <form
+                      onSubmit={handleSubmit(onSubmit, onError)}
+                      className="space-y-6"
+                    >
                       <div className="grid md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="name">Name *</Label>
@@ -160,7 +199,9 @@ export function ContactSection() {
                             className="glass"
                           />
                           {errors.name && (
-                            <p className="text-sm text-destructive">{errors.name.message}</p>
+                            <p className="text-sm text-destructive">
+                              {errors.name.message}
+                            </p>
                           )}
                         </div>
                         <div className="space-y-2">
@@ -173,7 +214,9 @@ export function ContactSection() {
                             className="glass"
                           />
                           {errors.email && (
-                            <p className="text-sm text-destructive">{errors.email.message}</p>
+                            <p className="text-sm text-destructive">
+                              {errors.email.message}
+                            </p>
                           )}
                         </div>
                       </div>
@@ -187,7 +230,9 @@ export function ContactSection() {
                           className="glass"
                         />
                         {errors.subject && (
-                          <p className="text-sm text-destructive">{errors.subject.message}</p>
+                          <p className="text-sm text-destructive">
+                            {errors.subject.message}
+                          </p>
                         )}
                       </div>
 
@@ -201,7 +246,9 @@ export function ContactSection() {
                           className="glass resize-none"
                         />
                         {errors.message && (
-                          <p className="text-sm text-destructive">{errors.message.message}</p>
+                          <p className="text-sm text-destructive">
+                            {errors.message.message}
+                          </p>
                         )}
                       </div>
 
@@ -235,10 +282,11 @@ export function ContactSection() {
                 viewport={{ once: true }}
                 className="space-y-8"
               >
-                
                 {/* Contact Details */}
                 <div>
-                  <h3 className="text-2xl font-sora font-semibold mb-6">Get in Touch</h3>
+                  <h3 className="text-2xl font-sora font-semibold mb-6">
+                    Get in Touch
+                  </h3>
                   <div className="space-y-4">
                     {contactInfo.map((item, index) => (
                       <motion.div
@@ -255,7 +303,9 @@ export function ContactSection() {
                                 <item.icon className="w-5 h-5 text-primary" />
                               </div>
                               <div>
-                                <p className="text-sm text-muted-foreground">{item.label}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {item.label}
+                                </p>
                                 {item.href === "#" ? (
                                   <p className="font-medium">{item.value}</p>
                                 ) : (
@@ -277,7 +327,9 @@ export function ContactSection() {
 
                 {/* Social Links */}
                 <div>
-                  <h3 className="text-2xl font-sora font-semibold mb-6">Connect Online</h3>
+                  <h3 className="text-2xl font-sora font-semibold mb-6">
+                    Connect Online
+                  </h3>
                   <div className="space-y-4">
                     {socialLinks.map((social, index) => (
                       <motion.div
@@ -299,7 +351,9 @@ export function ContactSection() {
                                 <social.icon className="w-5 h-5 text-primary" />
                               </div>
                               <div>
-                                <p className="text-sm text-muted-foreground">{social.label}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {social.label}
+                                </p>
                                 <p className="font-medium hover:text-primary transition-colors">
                                   @{social.username}
                                 </p>
@@ -322,8 +376,8 @@ export function ContactSection() {
                       <div>
                         <h4 className="font-semibold mb-2">Response Time</h4>
                         <p className="text-sm text-muted-foreground leading-relaxed">
-                          I typically respond within 24 hours. For urgent matters, 
-                          feel free to reach out via phone or LinkedIn.
+                          I typically respond within 24 hours. For urgent
+                          matters, feel free to reach out via phone or LinkedIn.
                         </p>
                       </div>
                     </div>
