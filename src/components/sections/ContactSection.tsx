@@ -111,15 +111,15 @@ export function ContactSection() {
 
     try {
       await emailjs.send(
-        process.env.VITE_EMAIL_JS_SERVICE_ID,
-        process.env.VITE_EMAIL_JS_TEMPLATE_ID,
+        import.meta.env.VITE_EMAIL_JS_SERVICE_ID,
+        import.meta.env.VITE_EMAIL_JS_TEMPLATE_ID,
         {
           name: data.name,
           email: data.email,
           subject: data.subject,
           message: data.message,
         },
-        process.env.VITE_EMAIL_JS_PUBLIC_API_KEY
+        import.meta.env.VITE_EMAIL_JS_PUBLIC_API_KEY
       );
 
       toast({

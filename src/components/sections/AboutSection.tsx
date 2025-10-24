@@ -17,10 +17,11 @@ const skills = {
     "Provider",
     "REST APIs",  
     "Firebase",
-    "Supabase",
+    "Jetpack Compose",
+    "Kotlin"
   ],
   backend: ["Node.js", "Express", "Supabase", "Firebase", "REST APIs"],
-  data: ["Pandas", "NumPy", "SQL" , "SnowFlake", "Data Analysis","Data Engineering"],
+  data: ["Pandas", "NumPy", "SQL" , "SnowFlake", "Apache Airflow","AWS"],
   tools: ["Git", "CI/CD", "GitHub Actions", "VS Code"],
 };
 
@@ -77,7 +78,7 @@ export function AboutSection() {
                 <div className="flex items-center gap-3 mb-6">
                   <Briefcase className="w-6 h-6 text-primary" />
                   <span className="text-primary font-medium">
-                    Currently At Halcon Systems Pvt Ltd
+                    Currently Leading Projects At CSIT NEDUET
                   </span>
                 </div>
 
@@ -87,10 +88,10 @@ export function AboutSection() {
 
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                   <p>
-                    I'm currently leading the frontend development of a
-                    management system from scratch at{" "}
+                    I'm currently leading the frontend development of different applicaitons
+                    from scratch at{" "}
                     <strong className="text-foreground">
-                      Halcon Systems Pvt Ltd
+                      NEDUET CSIT DEPARTMENT
                     </strong>
                     , where I handle client requirement gathering and UI
                     architecture design.
@@ -100,7 +101,7 @@ export function AboutSection() {
                     My journey started with mobile app development using
                     Flutter, but I'm actively expanding into full-stack
                     development. I'm planning to take ownership of backend
-                    integration in our next project phase, combining my mobile
+                    integration in different projects, combining my mobile
                     expertise with server-side technologies.
                   </p>
 
@@ -113,7 +114,7 @@ export function AboutSection() {
                 </div>
 
                 <div className="mt-8">
-                  <Button className="btn-primary"  onClick={() => window.open("H-S Resume.pdf", "_blank")}>    
+                  <Button className="btn-primary"  onClick={() => window.open("Hassan's CV.pdf", "_blank")}>    
                     <Download className="mr-2 w-4 h-4" />
                     Download CV
                   </Button>
@@ -198,7 +199,7 @@ export function AboutSection() {
                           : category === "backend"
                           ? "Backend Development"
                           : category === "data"
-                          ? "Data Science"
+                          ? "Data Engineering"
                           : "Tools & Workflow"}
                       </h4>
                       <div className="space-y-2">

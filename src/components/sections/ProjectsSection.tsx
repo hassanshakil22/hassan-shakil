@@ -14,7 +14,7 @@ interface Project {
   stack: string[];
   summary: string;
   outcomes: string[];
-  category: "mobile" | "web" | "fullstack";
+  category: "mobile" | "web" | "fullstack" | "Data";
   image?: string;
   liveUrl?: string;
   repoUrl?: string;
@@ -222,6 +222,63 @@ const projects: Project[] = [
     image: `${import.meta.env.BASE_URL}smartSociety.png`,
     liveUrl: `${import.meta.env.BASE_URL}smartSociety.png`,
   },
+  {
+    id: "sp-500",
+    title: "SP-500 ETL Airflow Pipeline",
+    role: "Data Engineer",
+    period: "2025",
+    stack: [
+      "Python",
+      "Apache Airflow",
+      "ETL",
+      "Yahoo finance",
+      "Dag",
+      "Docker",
+      "Ubantu",
+    ],
+    summary:
+      "Automating the full data ingestion workflow for S&P 500 market data Using Apache Airflow",
+    outcomes: [
+      "Automated ETL workflow",
+      "Daily stock ingestion",
+      "Airflow DAG orchestration",
+      "Data warehouse integration",
+      "S3 data archival",
+      "Snowflake analytics ready",
+    ],
+    category: "Data",
+    repoUrl: "https://github.com/hassanshakil22/airflow-etl-project-sp500",
+    image: `${import.meta.env.BASE_URL}sp_500_architecture.png`,
+    liveUrl: `${import.meta.env.BASE_URL}sp_500_architecture.png`,
+  },
+  {
+    id: "scd",
+    title: "SCD pipeline",
+    role: "Data Engineer",
+    period: "2025",
+    stack: [
+      "Python",
+      "Apache Nifi",
+      "S3",
+      "Jupyter Notebook",
+      "Docker",
+      "Snowflake",
+    ],
+    summary:
+      "Automating data engineering pipeline using Apache NiFi, AWS S3, and Snowflake to implement real-time Slowly Changing Dimensions (Type 1 & 2) for historical data tracking and warehousing.",
+    outcomes: [
+      "Automated SCD pipeline",
+      "Real-time data ingestion",
+      "Snowflake warehousing setup",
+      "Event-driven automation",
+      "Historical change tracking",
+      "NiFi AWS integration",
+    ],
+    category: "Data",
+    repoUrl: "https://github.com/hassanshakil22/Slowly-Changing-Dim-SCD-Snowflake",
+    image: `${import.meta.env.BASE_URL}SCD_Architecture.png`,
+    liveUrl: `${import.meta.env.BASE_URL}SCD_Architecture.png`,
+  },
 ];
 
 const categories = [
@@ -229,6 +286,7 @@ const categories = [
   { id: "mobile", name: "Mobile Apps" },
   { id: "web", name: "Web Apps" },
   { id: "fullstack", name: "Full-Stack" },
+  { id: "Data", name: "Data Engineering" },
 ];
 
 export function ProjectsSection() {
@@ -331,12 +389,12 @@ export function ProjectsSection() {
                 >
                   <Card className="glass-card h-full hover:shadow-glow transition-all duration-300">
                     {/* Project Image Placeholder */}
-                    <div className="h-76 bg-gradient-to-br from-primary/20 to-accent/20 rounded-t-2xl overflow-hidden flex items-center justify-center">
+                    <div className="w-full h-64 md:h-72 lg:h-88 bg-gradient-to-br from-primary/20 to-accent/20 rounded-t-2xl overflow-hidden flex items-center justify-center">
                       {project.image ? (
                         <img
                           src={project.image}
                           alt={`${project.title} Demo`}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-fill"
                         />
                       ) : (
                         <div className="w-16 h-16 bg-primary/30 rounded-2xl" />

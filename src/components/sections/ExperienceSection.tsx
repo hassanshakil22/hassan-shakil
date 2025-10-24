@@ -1,29 +1,19 @@
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Briefcase, ChevronRight, Target, Users, Code,Database, Award} from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Briefcase,
+  ChevronRight,
+  Target,
+  Users,
+  Code,
+  Database,
+  Award,
+} from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const experience = [
-  {
-    company: "Halcon Systems Pvt Ltd",
-    position: "Junior Flutter Developer",
-    period: "June 2025 – August 2025",
-    location: "Karachi, Pakistan",
-    type: "Full-time",
-    responsibilities: [
-      "Leading frontend development of management system from scratch",
-      "Handling client requirement gathering and analysis",
-      "Designing and implementing UI architecture patterns",
-      "Planning backend integration ownership for next project phase",
-      "Collaborating with stakeholders to define project scope and deliverables"
-    ],
-    achievements: [
-      "Successfully delivered frontend components ahead of schedule",
-      "Established scalable UI architecture for future development",
-      "Improved client communication and requirement clarity by 40%"
-    ],
-    technologies: ["Flutter", "Dart", "REST APIs", "State Management", "UI/UX Design"]
-  },
   {
     company: "NEDUET CSIT Dept",
     position: "Lead Flutter Developer / Project Manager",
@@ -37,68 +27,107 @@ const experience = [
       "Leading frontend development of ARG Attendance App for CSIT dept",
       "Handling A foreign client requirement gathering and analysis",
       "Designing and implementing UI architecture patterns",
-      "Collaborating with stakeholders to define project scope and deliverables"
+      "Collaborating with stakeholders to define project scope and deliverables",
     ],
     achievements: [
       "Successfully delivered frontend components ahead of schedule",
       "Successfully deployed backend on NameCheap through CI-CD (github actions)",
       "Established scalable UI architecture for future development",
-      "Improved client communication and requirement clarity by 40%"
+      "Improved client communication and requirement clarity by 40%",
     ],
-    technologies: ["Flutter", "Dart", "Node" , "Express" ,"REST APIs", "Provider", "UI/UX Design"]
-  }
-
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Node",
+      "Express",
+      "REST APIs",
+      "Provider",
+      "UI/UX Design",
+    ],
+  },
+  {
+    company: "Halcon Systems Pvt Ltd",
+    position: "Junior Flutter Developer",
+    period: "June 2025 – August 2025",
+    location: "Karachi, Pakistan",
+    type: "Full-time",
+    responsibilities: [
+      "Leading frontend development of management system from scratch",
+      "Handling client requirement gathering and analysis",
+      "Designing and implementing UI architecture patterns",
+      "Planning backend integration ownership for next project phase",
+      "Collaborating with stakeholders to define project scope and deliverables",
+    ],
+    achievements: [
+      "Successfully delivered frontend components ahead of schedule",
+      "Established scalable UI architecture for future development",
+      "Improved client communication and requirement clarity by 40%",
+    ],
+    technologies: [
+      "Flutter",
+      "Dart",
+      "REST APIs",
+      "State Management",
+      "UI/UX Design",
+    ],
+  },
 ];
 
 const featurePlaybooks = [
   {
     title: "Pagination Pattern",
-    description: "Efficient data loading with infinite scroll and pull-to-refresh",
-    technologies: ["Flutter", "Provider", "REST API"]
+    description:
+      "Efficient data loading with infinite scroll and pull-to-refresh",
+    technologies: ["Flutter", "Provider", "REST API"],
   },
   {
     title: "Offline-First Architecture",
     description: "Robust data synchronization with local caching strategies",
-    technologies: ["SQLite", "Sync Manager", "State Management"]
+    technologies: ["SQLite", "Sync Manager", "State Management"],
   },
   {
     title: "Error Boundaries",
     description: "Graceful error handling with user-friendly fallback UIs",
-    technologies: ["Flutter", "Error Handling", "UX Design"]
+    technologies: ["Flutter", "Error Handling", "UX Design"],
   },
   {
     title: "Real-time Updates",
     description: "Live data synchronization with WebSocket integration",
-    technologies: ["WebSocket", "Stream Management", "Firebase"]
-  }
+    technologies: ["WebSocket", "Stream Management", "Firebase"],
+  },
 ];
 
 const careerGoals = [
   {
     icon: Target,
     title: "Full-Stack Mastery",
-    description: "Expanding backend development skills with Node.js, databases, and cloud services"
+    description:
+      "Expanding backend development skills with Node.js, databases, and cloud services",
   },
   {
     icon: Users,
     title: "Team Leadership",
-    description: "Growing into technical leadership roles and mentoring junior developers"
+    description:
+      "Growing into technical leadership roles and mentoring junior developers",
   },
   {
     icon: Code,
     title: "Open Source",
-    description: "Contributing to Flutter ecosystem and sharing knowledge with the community"
+    description:
+      "Contributing to Flutter ecosystem and sharing knowledge with the community",
   },
   {
     icon: Database,
     title: "Data Engineer",
-    description: "Building scalable data pipelines and driving knowledge-sharing within the data community"
+    description:
+      "Building scalable data pipelines and driving knowledge-sharing within the data community",
   },
   {
     icon: Award,
     title: "Competitve Programming",
-    description: "Sharpening problem-solving skills and fostering collaborative growth within the competitive programming community."
-  }
+    description:
+      "Sharpening problem-solving skills and fostering collaborative growth within the competitive programming community.",
+  },
 ];
 
 export function ExperienceSection() {
@@ -147,7 +176,7 @@ export function ExperienceSection() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="glass-card">
+                  <Card className="glass-card m-2">
                     <CardHeader>
                       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                         <div>
@@ -156,11 +185,15 @@ export function ExperienceSection() {
                               <Briefcase className="w-6 h-6 text-primary" />
                             </div>
                             <div>
-                              <h4 className="text-2xl font-semibold">{job.position}</h4>
-                              <p className="text-lg font-medium text-primary">{job.company}</p>
+                              <h4 className="text-2xl font-semibold">
+                                {job.position}
+                              </h4>
+                              <p className="text-lg font-medium text-primary">
+                                {job.company}
+                              </p>
                             </div>
                           </div>
-                          
+
                           <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
@@ -179,7 +212,6 @@ export function ExperienceSection() {
                     </CardHeader>
 
                     <CardContent className="space-y-8">
-                      
                       {/* Responsibilities */}
                       <div>
                         <h5 className="text-lg font-semibold mb-4 flex items-center gap-2">
@@ -218,7 +250,9 @@ export function ExperienceSection() {
 
                       {/* Technologies */}
                       <div>
-                        <h5 className="text-lg font-semibold mb-4">Technologies Used</h5>
+                        <h5 className="text-lg font-semibold mb-4">
+                          Technologies Used
+                        </h5>
                         <div className="flex flex-wrap gap-2">
                           {job.technologies.map((tech) => (
                             <Badge key={tech} className="tech-chip">
@@ -302,7 +336,7 @@ export function ExperienceSection() {
               Where I'm heading next in my development journey
             </p>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 gap-8 ">
               {careerGoals.map((goal, index) => (
                 <motion.div
                   key={index}
@@ -317,7 +351,9 @@ export function ExperienceSection() {
                       <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                         <goal.icon className="w-8 h-8 text-primary" />
                       </div>
-                      <h4 className="text-xl font-semibold mb-4">{goal.title}</h4>
+                      <h4 className="text-xl font-semibold mb-4">
+                        {goal.title}
+                      </h4>
                       <p className="text-muted-foreground leading-relaxed">
                         {goal.description}
                       </p>
