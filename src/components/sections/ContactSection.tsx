@@ -168,7 +168,7 @@ export function ContactSection() {
 
       {/* Contact Form & Info */}
       <div className="section-padding bg-muted/20">
-        <div className="container-padding">
+        <div className="">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Contact Form */}
@@ -284,7 +284,7 @@ export function ContactSection() {
               >
                 {/* Contact Details */}
                 <div>
-                  <h3 className="text-2xl font-sora font-semibold mb-6">
+                  <h3 className="text-2xl font-sora font-semibold mb-6 px-2">
                     Get in Touch
                   </h3>
                   <div className="space-y-4">
@@ -327,7 +327,7 @@ export function ContactSection() {
 
                 {/* Social Links */}
                 <div>
-                  <h3 className="text-2xl font-sora font-semibold mb-6">
+                  <h3 className="text-2xl font-sora font-semibold mb-6 px-2">
                     Connect Online
                   </h3>
                   <div className="space-y-4">

@@ -76,11 +76,13 @@
 
   html {
     scroll-behavior: smooth;
+     overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-inter;
     font-feature-settings: "rlig" 1, "calt" 1;
+     overflow-x: hidden;
   }
 
   /* Custom scrollbar */
@@ -151,7 +153,7 @@
   }
 
   .container-padding {
-    @apply px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto;
+    @apply px-6 lg:px-8 xl:px-12 max-w-7xl mx-auto ;
   }
 
   /* Animations */
