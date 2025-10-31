@@ -320,7 +320,7 @@ export function ProjectsSection() {
               My <span className="gradient-text">Projects</span>
             </h2>
             <p className="text-xl text-muted-foreground">
-              Showcasing mobile apps and full-stack solutions I've built
+              Showcasing mobile apps and full-stack Data solutions I've built
             </p>
           </motion.div>
 
@@ -341,7 +341,7 @@ export function ProjectsSection() {
               {/* Category Filter */}
               <div className="flex items-center gap-2">
                 <Filter className="w-4 h-4 text-muted-foreground" />
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   {categories.map((category) => (
                     <Button
                       key={category.id}
