@@ -15,6 +15,37 @@ import { Badge } from "@/components/ui/badge";
 
 const experience = [
   {
+    company: "Catalyst IT Solution",
+    position: "Flutter Developer",
+    period: "November 2025 – Present",
+    location: "Karachi, Pakistan",
+    type: "Full-Time",
+    responsibilities: [
+      "Developing secure, production-grade financial applications for major clients including JS Bank, Arif Habib Ltd (AHL), and UBL",
+      "Architecting and building custom SDKs to standardize features across mobile projects",
+      "Re-engineering complete application architectures to improve scalability and maintainability",
+      "Implementing robust state management solutions and modernizing legacy codebases",
+      "Upgrading Flutter versions and refactoring code to boost application efficiency and performance",
+      "Designing and implementing advanced UI architecture patterns",
+      "Collaborating with stakeholders to define project scope and deliverables"
+    ],
+    achievements: [
+      "Modernized legacy project environments by successfully migrating from Flutter 3.16 to 3.25 to enhance performance and stability",
+      "Engineered a scalable cross-platform FeedClient SDK using Kotlin Multiplatform (KMP) to streamline client integrations",
+      "Architected and implemented robust, production-ready code structures for multiple high-priority projects"
+    ],
+    technologies: [
+      "Flutter",
+      "Dart",
+      "Java",
+      "Kotlin",
+      "REST APIs",
+      "Server Feeds",
+      "Provider",
+      "UI/UX Design",
+    ],
+  },
+  {
     company: "NEDUET CSIT Dept",
     position: "Lead Flutter Developer / Project Manager",
     period: "March 2025 – Present",

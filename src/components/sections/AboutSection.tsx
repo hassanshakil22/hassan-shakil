@@ -15,13 +15,13 @@ const skills = {
     "Dart",
     "GetX",
     "Provider",
-    "REST APIs",  
+    "REST APIs",
     "Firebase",
     "Jetpack Compose",
     "Kotlin"
   ],
   backend: ["Node.js", "Express", "Supabase", "Firebase", "REST APIs"],
-  data: ["Pandas", "NumPy", "SQL" , "SnowFlake", "Apache Airflow","AWS"],
+  data: ["Pandas", "NumPy", "SQL", "SnowFlake", "Apache Airflow", "AWS"],
   tools: ["Git", "CI/CD", "GitHub Actions", "VS Code"],
 };
 
@@ -73,22 +73,23 @@ export function AboutSection() {
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+                viewport={{ once: true }}
               >
                 <div className="flex items-center gap-3 mb-6">
                   <Briefcase className="w-6 h-6 text-primary" />
                   <span className="text-primary font-medium">
-                    Currently Leading Projects At CSIT NEDUET
+                    Currently Working as a Flutter developer @Catalyst IT Solutions
                   </span>
                 </div>
 
                 <h3 className="text-3xl font-sora font-bold mb-6">
-                  Junior Flutter Developer with Full-Stack Ambitions
-                </h3>
+                  Working on multiple NxG <br /> trading applications                </h3>
 
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                   <p>
-                    I'm currently leading the frontend development of different applicaitons
+                    Currently serving as a Flutter Developer at   <strong className="text-foreground">
+                      CATALYST IT SOLUTIONS
+                    </strong> while concurrently leading multiple frontend projects 
                     from scratch at{" "}
                     <strong className="text-foreground">
                       NEDUET CSIT DEPARTMENT
@@ -106,15 +107,15 @@ export function AboutSection() {
                   </p>
 
                   <p>
-                    I have a strong interest in cloud technologies, security,
-                    and building scalable systems. My goal is to become a
+                    I have a strong interest in <strong> Data Engineering</strong>, <strong>cloud technologies</strong>, <strong>security</strong>,
+                    and <strong>building scalable systems</strong>. My goal is to become a
                     versatile developer who can handle the entire software
                     development lifecycle.
                   </p>
                 </div>
 
                 <div className="mt-8">
-                  <Button className="btn-primary"  onClick={() => window.open("Hassan's CV.pdf", "_blank")}>    
+                  <Button className="btn-primary" onClick={() => window.open("Hassan's CV.pdf", "_blank")}>
                     <Download className="mr-2 w-4 h-4" />
                     Download CV
                   </Button>
@@ -146,7 +147,7 @@ export function AboutSection() {
                       <span className="font-medium">Specialization</span>
                     </div>
                     <p className="text-muted-foreground">
-                      Flutter Mobile Development & UI/UX Design
+                      Mobile App Development & Data Engineering
                     </p>
                   </CardContent>
                 </Card>
@@ -197,10 +198,10 @@ export function AboutSection() {
                         {category === "mobile"
                           ? "Mobile Development"
                           : category === "backend"
-                          ? "Backend Development"
-                          : category === "data"
-                          ? "Data Engineering"
-                          : "Tools & Workflow"}
+                            ? "Backend Development"
+                            : category === "data"
+                              ? "Data Engineering"
+                              : "Tools & Workflow"}
                       </h4>
                       <div className="space-y-2">
                         {techs.map((tech) => (
