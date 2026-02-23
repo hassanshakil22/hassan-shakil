@@ -89,7 +89,7 @@ export function AboutSection() {
                   <p>
                     Currently serving as a Flutter Developer at   <strong className="text-foreground">
                       CATALYST IT SOLUTIONS
-                    </strong> while concurrently leading multiple frontend projects 
+                    </strong> while concurrently leading multiple frontend projects
                     from scratch at{" "}
                     <strong className="text-foreground">
                       NEDUET CSIT DEPARTMENT

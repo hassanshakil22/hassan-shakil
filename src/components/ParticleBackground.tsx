@@ -13,9 +13,7 @@ export const ParticleBackground = ({ id = "tsparticles", className }: ParticleBa
     await loadSlim(engine);
   }, []);
 
-  const particlesLoaded = useCallback(async (container: Container | undefined) => {
-    console.log(container);
-  }, []);
+  const particlesLoaded = useCallback(async (_container: Container | undefined) => { }, []);
 
   return (
     <Particles
@@ -24,81 +22,104 @@ export const ParticleBackground = ({ id = "tsparticles", className }: ParticleBa
       init={particlesInit}
       loaded={particlesLoaded}
       options={{
-        background: {
-          opacity: 0,
-        },
-        fpsLimit: 120,
+        background: { opacity: 0 },
+        fpsLimit: 60,
+
         interactivity: {
           events: {
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
-            onHover: {
-              enable: true,
-              mode: "repulse",
-            },
+            onClick: { enable: true, mode: "repulse" },   // click = explode outward
+            onHover: { enable: true, mode: "grab" },      // hover = pull web toward cursor
             resize: true,
           },
           modes: {
-            push: {
-              quantity: 4,
+            grab: {
+              distance: 180,
+              links: { opacity: 0.6 },
             },
             repulse: {
-              distance: 200,
-              duration: 0.4,
+              distance: 250,
+              duration: 0.8,
             },
           },
         },
+
         particles: {
-          color: {
-            value: "#00ffff", // Teal color
-          },
+          /* ── greyscale nodes ── */
+          color: { value: ["#ffffff", "#bbbbbb", "#777777"] },
+
+          /* ── glowing web links ── */
           links: {
-            color: "#00ffff",
-            distance: 150,
             enable: true,
-            opacity: 0.3,
-            width: 1,
+            color: { value: "#aaaaaa" },
+            distance: 130,
+            opacity: 0.12,
+            width: 0.7,
+            triangles: {
+              enable: true,         // fills triangles between linked nodes
+              color: "#ffffff",
+              opacity: 0.015,
+            },
           },
+
+          shape: { type: "circle" },
+
           move: {
-            direction: "none",
             enable: true,
-            outModes: {
-              default: "bounce",
-            },
-            random: false,
-            speed: 2,
+            speed: 0.7,
+            direction: "none",
+            random: true,
             straight: false,
+            outModes: { default: "bounce" },  // bounce off edges — keeps web intact
+            attract: { enable: false },
           },
-          number: {
-            density: {
-              enable: true,
-              area: 800,
-            },
-            value: 80,
-          },
+
+          /* ── twinkling opacity ── */
           opacity: {
-            value: 0.5,
+            value: { min: 0.2, max: 0.8 },
+            animation: {
+              enable: true,
+              speed: 1.2,
+              minimumValue: 0.1,
+              sync: false,
+            },
           },
-          shape: {
-            type: "circle",
-          },
+
+          /* ── mix of tiny and a few bigger bright nodes ── */
           size: {
-            value: { min: 1, max: 5 },
+            value: { min: 0.8, max: 3.5 },
+            animation: {
+              enable: true,
+              speed: 2,
+              minimumValue: 0.4,
+              sync: false,
+              destroy: "none",
+              startValue: "random",
+            },
+          },
+
+          number: {
+            density: { enable: true, area: 700 },
+            value: 70,
           },
         },
+
         detectRetina: true,
         pauseOnBlur: true,
         pauseOnOutsideViewport: true,
+
         responsive: [
+          {
+            maxWidth: 1280,
+            options: {
+              particles: { number: { value: 100 } },
+            },
+          },
           {
             maxWidth: 768,
             options: {
               particles: {
-                number: {
-                  value: 40,
-                },
+                number: { value: 80 },
+                links: { distance: 100 },
               },
             },
           },

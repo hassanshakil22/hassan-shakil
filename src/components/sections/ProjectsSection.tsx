@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, Search, Filter } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { useEffect, useRef, useState } from "react";
+import { motion, type Variants } from "framer-motion";
+import { ExternalLink, Github, Smartphone, LayoutGrid } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+
+/* ─── Types ──────────────────────────────────────────── */
+type PhaseState = "hidden-below" | "visible" | "hidden-above";
+type ProjectDisplayType = "phone" | "card";
 
 interface Project {
   id: string;
@@ -13,165 +14,39 @@ interface Project {
   period: string;
   stack: string[];
   summary: string;
-  outcomes: string[];
   category: "mobile" | "web" | "fullstack" | "Data";
   image?: string;
+  videoSrc?: string;
+  gifSrc?: string;
+  displayType: ProjectDisplayType;
   liveUrl?: string;
   repoUrl?: string;
+  accentColor: string;
 }
 
-// const projects: Project[] = [
-//   {
-//     id: "taste-app",
-//     title: "TASTE-APP",
-//     role: "Lead Frontend Developer",
-//     period: "2024",
-//     stack: ["Flutter", "REST APIs", "Provider", "Google Maps", "CI-CD"],
-//     summary:
-//       "Food delivery application with optimized UI/UX and seamless backend integration",
-//     outcomes: [
-//       "~30% faster development velocity",
-//       "Smooth ordering flows",
-//       "Real-time order tracking",
-//     ],
-//     category: "mobile",
-//     repoUrl: "https://github.com/hassanshakil22",
-//     image: "/taste-app.gif",
-//     liveUrl: "https://appetize.io/app/b_q7xosak5q4wk6uv7yo4bhrkt64",
-//   },
-//   {
-//     id: "guard-management",
-//     title: "GUARD-MANAGEMENT-APP",
-//     role: "Lead Frontend Developer",
-//     period: "2024",
-//     stack: ["Flutter", "REST APIs", "S3 Cloud Integration", "State Management"],
-//     summary:
-//       "Food delivery application with optimized UI/UX and seamless backend integration",
-//     outcomes: [
-//       "~30% faster development velocity",
-//       "Smooth ordering flows",
-//       "Real-time order tracking",
-//     ],
-//     category: "mobile",
-//     repoUrl: "https://github.com/hassanshakil22",
-//     image: "/guard-management-tut.gif",
-//     liveUrl: "https://appetize.io/app/b_dpm54tuql6iyaxtg2cbqbhztwa",
-//   },
-//   {
-//     id: "ned-attendance",
-//     title: "NED Attendance Registration App",
-//     role: "Frontend Developer",
-//     period: "2024",
-//     stack: ["Flutter", "REST API", "Provider", "Data Integrity"],
-//     summary:
-//       "CSIT department attendance system with teacher-office data synchronization",
-//     outcomes: [
-//       "Department-wide deployment",
-//       "Planning university-wide scaling",
-//       "Improved attendance accuracy",
-//     ],
-//     category: "mobile",
-//     repoUrl: "https://github.com/hassanshakil22",
-//     image: "/ARG.png",
-//     liveUrl: "/ARG.png",
-//   },
-//   // {
-//   //   id: "medbot",
-//   //   title: "MedBot",
-//   //   role: "Flutter Developer",
-//   //   period: "2024",
-//   //   stack: ["Flutter", "API Integration", "Conversational UI", "Healthcare"],
-//   //   summary:
-//   //     "Flutter-integrated chatbot providing fast medical information (non-diagnostic)",
-//   //   outcomes: [
-//   //     "Fast medical info access",
-//   //     "User-friendly chat interface",
-//   //     "Healthcare data integration",
-//   //   ],
-//   //   category: "mobile",
-//   //   repoUrl: "#",
-//   // },
-//   {
-//     id: "society-app",
-//     title: "Smart-Society App",
-//     role: "Flutter Developer",
-//     period: "2024",
-//     stack: ["Flutter", "UI-UX", "Responsive"],
-//     summary: "Flutter-integrated Society Management App's UI",
-//     outcomes: ["Create Users,Workers,Assets", "User-friendly interface"],
-//     category: "mobile",
-//     repoUrl: "https://github.com/hassanshakil22",
-//     image: "/smartSociety.png",
-//     liveUrl: "/smartSociety.png",
-//   },
-//   // {
-//   //   id: "weather-app",
-//   //   title: "Weather App",
-//   //   role: "Solo Developer",
-//   //   period: "2023",
-//   //   stack: ["Flutter", "REST API", "Geolocation", "Caching"],
-//   //   summary:
-//   //     "Weather application with location-based forecasts and offline caching",
-//   //   outcomes: [
-//   //     "Real-time weather data",
-//   //     "Offline functionality",
-//   //     "Location-based services",
-//   //   ],
-//   //   category: "mobile",
-//   //   repoUrl: "#",
-//   // },
-//   // {
-//   //   id: "ecommerce-app",
-//   //   title: "E-Commerce App",
-//   //   role: "UI/UX Developer",
-//   //   period: "2023",
-//   //   stack: ["Flutter", "Figma", "State Management", "UI/UX"],
-//   //   summary:
-//   //     "Complete e-commerce application built from Figma designs with cart and checkout flows",
-//   //   outcomes: [
-//   //     "Pixel-perfect implementation",
-//   //     "Smooth user experience",
-//   //     "Complete shopping flow",
-//   //   ],
-//   //   category: "mobile",
-//   //   repoUrl: "#",
-//   // },
-//   // {
-//   //   id: "crypto-tracker",
-//   //   title: "Crypto Tracker",
-//   //   role: "Solo Developer",
-//   //   period: "2023",
-//   //   stack: ["Flutter", "GetX", "REST API", "Charts"],
-//   //   summary:
-//   //     "Cryptocurrency tracking application with real-time price updates and portfolio management",
-//   //   outcomes: [
-//   //     "Real-time crypto data",
-//   //     "Portfolio tracking",
-//   //     "Interactive charts",
-//   //   ],
-//   //   category: "mobile",
-//   //   repoUrl: "#",
-//   // },
-// ];
+const EASE = [0.76, 0, 0.24, 1] as [number, number, number, number];
 
-const projects: Project[] = [
+const snapVariants: Variants = {
+  "hidden-below": { y: "90vh", opacity: 0, scale: 0.88, transition: { duration: 0.65, ease: EASE } },
+  visible: { y: "0vh", opacity: 1, scale: 1, transition: { duration: 0.65, ease: EASE } },
+  "hidden-above": { y: "-90vh", opacity: 0, scale: 0.88, transition: { duration: 0.65, ease: EASE } },
+};
+
+/* ─── Project data ───────────────────────────────────── */
+const allProjects: Project[] = [
   {
     id: "taste-app",
     title: "TASTE-APP",
     role: "Lead Frontend Developer",
     period: "2024",
     stack: ["Flutter", "REST APIs", "Provider", "Google Maps", "CI-CD"],
-    summary:
-      "Food delivery application with optimized UI/UX and seamless backend integration",
-    outcomes: [
-      "~30% faster development velocity",
-      "Smooth ordering flows",
-      "Real-time order tracking",
-    ],
+    summary: "Food delivery application with optimised UI/UX and seamless backend integration",
     category: "mobile",
     repoUrl: "https://github.com/hassanshakil22",
-    image: `${import.meta.env.BASE_URL}taste-app.gif`,
+    videoSrc: `${import.meta.env.BASE_URL}taste-food.mp4`,
+    displayType: "phone",
     liveUrl: "https://appetize.io/app/b_q7xosak5q4wk6uv7yo4bhrkt64",
+    accentColor: "#a78bfa",
   },
   {
     id: "guard-management",
@@ -179,17 +54,13 @@ const projects: Project[] = [
     role: "Lead Frontend Developer",
     period: "2024",
     stack: ["Flutter", "REST APIs", "S3 Cloud Integration", "State Management"],
-    summary:
-      "Food delivery application with optimized UI/UX and seamless backend integration",
-    outcomes: [
-      "~30% faster development velocity",
-      "Smooth ordering flows",
-      "Real-time order tracking",
-    ],
+    summary: "Guard management application with real-time tracking and cloud integration",
     category: "mobile",
     repoUrl: "https://github.com/hassanshakil22",
-    image: `${import.meta.env.BASE_URL}guard-management-tut.gif`,
+    videoSrc: `${import.meta.env.BASE_URL}marlboro-tut-sped.mp4`,
+    displayType: "phone",
     liveUrl: "https://appetize.io/app/b_dpm54tuql6iyaxtg2cbqbhztwa",
+    accentColor: "#34d399",
   },
   {
     id: "ned-attendance",
@@ -197,17 +68,13 @@ const projects: Project[] = [
     role: "Frontend Developer",
     period: "2024",
     stack: ["Flutter", "REST API", "Provider", "Data Integrity"],
-    summary:
-      "CSIT department attendance system with teacher-office data synchronization",
-    outcomes: [
-      "Department-wide deployment",
-      "Planning university-wide scaling",
-      "Improved attendance accuracy",
-    ],
+    summary: "CSIT department attendance system with teacher-office data synchronisation",
     category: "mobile",
     repoUrl: "https://github.com/hassanshakil22",
     image: `${import.meta.env.BASE_URL}ARG.png`,
+    displayType: "card",
     liveUrl: `${import.meta.env.BASE_URL}ARG.png`,
+    accentColor: "#f472b6",
   },
   {
     id: "society-app",
@@ -216,286 +83,299 @@ const projects: Project[] = [
     period: "2024",
     stack: ["Flutter", "UI-UX", "Responsive"],
     summary: "Flutter-integrated Society Management App's UI",
-    outcomes: ["Create Users,Workers,Assets", "User-friendly interface"],
     category: "mobile",
     repoUrl: "https://github.com/hassanshakil22",
     image: `${import.meta.env.BASE_URL}smartSociety.png`,
+    displayType: "card",
     liveUrl: `${import.meta.env.BASE_URL}smartSociety.png`,
+    accentColor: "#60a5fa",
   },
   {
     id: "sp-500",
     title: "SP-500 ETL Airflow Pipeline",
     role: "Data Engineer",
     period: "2025",
-    stack: [
-      "Python",
-      "Apache Airflow",
-      "ETL",
-      "Yahoo finance",
-      "Dag",
-      "Docker",
-      "Ubantu",
-    ],
-    summary:
-      "Automating the full data ingestion workflow for S&P 500 market data Using Apache Airflow",
-    outcomes: [
-      "Automated ETL workflow",
-      "Daily stock ingestion",
-      "Airflow DAG orchestration",
-      "Data warehouse integration",
-      "S3 data archival",
-      "Snowflake analytics ready",
-    ],
+    stack: ["Python", "Apache Airflow", "ETL", "Yahoo Finance", "Docker", "Ubuntu"],
+    summary: "Automating the full data ingestion workflow for S&P 500 market data using Apache Airflow",
     category: "Data",
     repoUrl: "https://github.com/hassanshakil22/airflow-etl-project-sp500",
     image: `${import.meta.env.BASE_URL}sp_500_architecture.png`,
+    displayType: "card",
     liveUrl: `${import.meta.env.BASE_URL}sp_500_architecture.png`,
+    accentColor: "#fb923c",
   },
   {
     id: "scd",
-    title: "SCD pipeline",
+    title: "SCD Pipeline",
     role: "Data Engineer",
     period: "2025",
-    stack: [
-      "Python",
-      "Apache Nifi",
-      "S3",
-      "Jupyter Notebook",
-      "Docker",
-      "Snowflake",
-    ],
-    summary:
-      "Automating data engineering pipeline using Apache NiFi, AWS S3, and Snowflake to implement real-time Slowly Changing Dimensions (Type 1 & 2) for historical data tracking and warehousing.",
-    outcomes: [
-      "Automated SCD pipeline",
-      "Real-time data ingestion",
-      "Snowflake warehousing setup",
-      "Event-driven automation",
-      "Historical change tracking",
-      "NiFi AWS integration",
-    ],
+    stack: ["Python", "Apache Nifi", "S3", "Jupyter Notebook", "Docker", "Snowflake"],
+    summary: "Automating data engineering pipeline with Apache NiFi, AWS S3, and Snowflake for real-time SCD.",
     category: "Data",
     repoUrl: "https://github.com/hassanshakil22/Slowly-Changing-Dim-SCD-Snowflake",
     image: `${import.meta.env.BASE_URL}SCD_Architecture.png`,
+    displayType: "card",
     liveUrl: `${import.meta.env.BASE_URL}SCD_Architecture.png`,
+    accentColor: "#22d3ee",
   },
 ];
 
-const categories = [
-  { id: "all", name: "All Projects" },
-  { id: "mobile", name: "Mobile Apps" },
-  { id: "web", name: "Web Apps" },
-  { id: "fullstack", name: "Full-Stack" },
-  { id: "Data", name: "Data Engineering" },
-];
+/* ─── Phone Frame ────────────────────────────────────── */
+function PhoneFrame({ videoSrc, gifSrc, accentColor, title, compact }: {
+  videoSrc?: string; gifSrc?: string; accentColor: string; title: string; compact?: boolean;
+}) {
+  const w = compact ? 180 : 300;
+  const h = compact ? 350 : 580;
+  const br = compact ? 28 : 40;
+  const notchW = compact ? "28px" : "44px";
+  const camSize = compact ? "5px" : "7px";
+  const camRight = compact ? "14px" : "24px";
+  const screenInset = compact ? "12px 2px 6px 2px" : "18px 3px 10px 3px";
+  const screenBr = compact ? 20 : 28;
+  const btnH1 = compact ? "36px" : "56px";
+  const btnTop1 = compact ? "58px" : "90px";
+  const btnH2 = compact ? "22px" : "32px";
+  const btnTop2 = compact ? "48px" : "75px";
+  const btnTop3 = compact ? "76px" : "115px";
+  return (
+    <div className="relative flex items-center justify-center">
+      <div className="absolute inset-0 rounded-3xl blur-3xl opacity-25 scale-75" style={{ background: accentColor }} />
+      <div style={{ width: `${w}px`, height: `${h}px`, background: "#000", borderRadius: `${br}px`, border: `2px solid ${accentColor}44`, boxShadow: `0 0 0 1px #ffffff08, 0 40px 80px -20px ${accentColor}66, inset 0 1px 0 #ffffff12`, overflow: "hidden", position: "relative", flexShrink: 0 }}>
+        <div style={{ position: "absolute", top: "11px", left: "50%", transform: "translateX(-50%)", width: notchW, height: "4px", background: "#1a1a1a", borderRadius: "2px", zIndex: 10 }} />
+        <div style={{ position: "absolute", top: "9px", right: camRight, width: camSize, height: camSize, background: "#111", borderRadius: "50%", border: "1px solid #2a2a2a", zIndex: 10 }} />
+        <div style={{ position: "absolute", inset: screenInset, borderRadius: `${screenBr}px`, overflow: "hidden", background: "#000" }}>
+          <video src={videoSrc} autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+        </div>
+        <div style={{ position: "absolute", top: btnTop1, right: "-3px", width: "3px", height: btnH1, background: "#0f0f0f", borderRadius: "0 2px 2px 0" }} />
+        <div style={{ position: "absolute", top: btnTop2, left: "-3px", width: "3px", height: btnH2, background: "#0f0f0f", borderRadius: "2px 0 0 2px" }} />
+        <div style={{ position: "absolute", top: btnTop3, left: "-3px", width: "3px", height: btnH2, background: "#0f0f0f", borderRadius: "2px 0 0 2px" }} />
+        <div style={{ position: "absolute", inset: 0, borderRadius: `${br}px`, background: "linear-gradient(135deg,rgba(255,255,255,0.05) 0%,transparent 50%)", pointerEvents: "none", zIndex: 20 }} />
+      </div>
+    </div>
+  );
+}
 
-export function ProjectsSection() {
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [searchTerm, setSearchTerm] = useState("");
+/* ─── Single project slide inside the inner scroll ───── */
+function ProjectSlide({
+  project, index, total, containerRef,
+}: {
+  project: Project; index: number; total: number; containerRef: React.RefObject<HTMLDivElement | null>;
+}) {
+  const slideRef = useRef<HTMLDivElement>(null);
+  const [phase, setPhase] = useState<PhaseState>("hidden-below");
+  const isPhone = project.displayType === "phone";
 
-  const filteredProjects = projects.filter((project) => {
-    const matchesCategory =
-      selectedCategory === "all" || project.category === selectedCategory;
-    const matchesSearch =
-      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.stack.some((tech) =>
-        tech.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    return matchesCategory && matchesSearch;
-  });
+  useEffect(() => {
+    const slide = slideRef.current;
+    const container = containerRef.current;
+    if (!slide || !container) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPhase("visible");
+        } else {
+          setPhase(entry.boundingClientRect.top > 0 ? "hidden-below" : "hidden-above");
+        }
+      },
+      { root: container, threshold: 0.5 }
+    );
+    observer.observe(slide);
+    return () => observer.disconnect();
+  }, [containerRef]);
 
   return (
-    <section id="projects" className="min-h-screen">
-      {/* Hero Section */}
-      <div className="section-padding">
-        <div className="container-padding">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-6xl font-sora font-bold mb-6">
-              My <span className="gradient-text">Projects</span>
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Showcasing mobile apps and full-stack Data solutions I've built
-            </p>
-          </motion.div>
+    <div ref={slideRef} style={{ height: "100vh", flexShrink: 0, scrollSnapAlign: "start", scrollSnapStop: "always", position: "relative" }}>
+      <div className="h-full flex items-center justify-center overflow-hidden">
+        {/* Ambient glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 55% 45% at 50% 70%, ${project.accentColor}20 0%, transparent 70%)` }} />
 
-          {/* Filters */}
-          <div className="max-w-4xl mx-auto mb-12">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              {/* Search */}
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Search projects or technologies..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 glass"
-                />
-              </div>
+        {/* Watermark — desktop only */}
+        <div className="absolute right-4 bottom-8 select-none pointer-events-none hidden sm:block">
+          <span className="text-7xl md:text-8xl font-black leading-none" style={{ color: `${project.accentColor}0d` }}>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
 
-              {/* Category Filter */}
-              <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-muted-foreground" />
-                <div className="flex flex-wrap gap-2">
-                  {categories.map((category) => (
-                    <Button
-                      key={category.id}
-                      variant={
-                        selectedCategory === category.id ? "default" : "outline"
-                      }
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={
-                        selectedCategory === category.id
-                          ? "btn-primary"
-                          : "btn-secondary"
-                      }
-                    >
-                      {category.name}
-                    </Button>
-                  ))}
-                </div>
+        {/* Progress dots — desktop sidebar */}
+        <div className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 flex-col gap-2 z-20 hidden md:flex">
+          {Array.from({ length: total }).map((_, i) => (
+            <div key={i} className="rounded-full transition-all duration-500" style={{
+              width: i === index ? "8px" : "4px",
+              height: i === index ? "8px" : "4px",
+              background: i === index ? project.accentColor : `${project.accentColor}30`,
+              boxShadow: i === index ? `0 0 8px ${project.accentColor}` : "none",
+            }} />
+          ))}
+        </div>
+
+        {/* Animated layout */}
+        <motion.div
+          animate={phase}
+          variants={snapVariants}
+          initial="hidden-below"
+          className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-8 md:px-16
+            flex flex-col md:flex-row items-center gap-6 md:gap-12 lg:gap-16"
+        >
+          {/* ── Media ── */}
+          <div className="flex-shrink-0 flex items-center justify-center w-full md:w-auto">
+            {isPhone ? (
+              <PhoneFrame
+                videoSrc={project.videoSrc}
+                gifSrc={project.gifSrc}
+                accentColor={project.accentColor}
+                title={project.title}
+                compact={window.innerWidth < 768}
+              />
+            ) : (
+              <div
+                className="relative rounded-xl overflow-hidden w-full"
+                style={{
+                  maxWidth: "clamp(280px, 90vw, 560px)",
+                  aspectRatio: "16/9",
+                  border: `1px solid ${project.accentColor}33`,
+                  boxShadow: `0 0 0 1px ${project.accentColor}22, 0 20px 60px -16px ${project.accentColor}44`,
+                }}
+              >
+                <img src={project.image} alt={project.title} className="w-full h-full object-contain bg-black/30" />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: `linear-gradient(135deg,${project.accentColor}10 0%,transparent 60%)` }} />
               </div>
+            )}
+          </div>
+
+          {/* ── Info ── */}
+          <div className="flex-1 min-w-0 text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+              {isPhone
+                ? <Smartphone className="w-4 h-4" style={{ color: project.accentColor }} />
+                : <LayoutGrid className="w-4 h-4" style={{ color: project.accentColor }} />}
+              <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: project.accentColor }}>
+                {project.category === "Data" ? "Data Engineering" : isPhone ? "Mobile App" : "Project"}
+              </span>
+              {/* mobile counter */}
+              <span className="ml-auto md:hidden text-xs text-zinc-500 tabular-nums">{index + 1}/{total}</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 text-white leading-tight">{project.title}</h3>
+            <p className="text-xs sm:text-sm text-zinc-400 mb-3">{project.role} · {project.period}</p>
+            <p className="text-sm text-zinc-300 mb-4 leading-relaxed max-w-md mx-auto md:mx-0 line-clamp-3 md:line-clamp-none">{project.summary}</p>
+            <div className="flex flex-wrap gap-1.5 mb-5 justify-center md:justify-start">
+              {project.stack.map((tech) => (
+                <Badge key={tech} variant="secondary" className="px-2 py-0.5 text-xs" style={{ background: `${project.accentColor}18`, border: `1px solid ${project.accentColor}33`, color: project.accentColor }}>
+                  {tech}
+                </Badge>
+              ))}
+            </div>
+            {/* Buttons — side by side on mobile too, full width available */}
+            <div className="flex gap-2 sm:gap-3 justify-center md:justify-start">
+              {project.liveUrl && (
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex-1 sm:flex-none sm:w-36">
+                  <button className="w-full flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all hover:scale-105"
+                    style={{ background: project.accentColor, color: "#000", boxShadow: `0 6px 20px ${project.accentColor}44` }}>
+                    <ExternalLink className="w-3.5 h-3.5" /> View Live
+                  </button>
+                </a>
+              )}
+              {project.repoUrl && (
+                <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="flex-1 sm:flex-none sm:w-36">
+                  <button className="w-full flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all hover:scale-105"
+                    style={{ background: "transparent", border: `1px solid ${project.accentColor}55`, color: project.accentColor }}>
+                    <Github className="w-3.5 h-3.5" /> GitHub
+                  </button>
+                </a>
+              )}
             </div>
           </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── Main export ────────────────────────────────────── */
+export function ProjectsSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const snapped = useRef(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    // Fires as soon as the section peeks in (5% visible) → snap it full screen
+    const enterObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !snapped.current) {
+          snapped.current = true;
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        // Reset lock when section fully leaves so scroll-back works
+        if (!entry.isIntersecting) {
+          snapped.current = false;
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    enterObserver.observe(section);
+    return () => enterObserver.disconnect();
+  }, []);
+
+  return (
+    <section
+      id="projects"
+      ref={sectionRef}
+      style={{ height: "100vh", position: "relative" }}
+    >
+      {/* Inner vertical snap scroll container */}
+      <div
+        ref={scrollRef}
+        style={{
+          height: "100%",
+          overflowY: "scroll",
+          scrollSnapType: "y mandatory",
+          scrollBehavior: "smooth",
+          msOverflowStyle: "none",
+          scrollbarWidth: "none" as const,
+        }}
+      >
+        {/* Hero intro slide */}
+        <div style={{ height: "100vh", scrollSnapAlign: "start", scrollSnapStop: "always" }}
+          className="relative flex flex-col items-center justify-center text-center px-6">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute rounded-full blur-3xl opacity-20" style={{ width: "500px", height: "500px", top: "-80px", left: "-120px", background: "radial-gradient(circle,#a78bfa,transparent)", animation: "pjFloat 8s ease-in-out infinite" }} />
+            <div className="absolute rounded-full blur-3xl opacity-15" style={{ width: "400px", height: "400px", bottom: "-60px", right: "-80px", background: "radial-gradient(circle,#34d399,transparent)", animation: "pjFloat 10s ease-in-out infinite reverse" }} />
+          </div>
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="relative z-10">
+
+            <h2 className="text-5xl md:text-7xl font-black mb-6 text-white">My <span className="gradient-text">Personal Projects</span></h2>
+            <p className="text-lg text-zinc-400 mb-10">Scroll down — each project snaps into view</p>
+            <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} className="flex flex-col items-center gap-2">
+              <span className="text-xs text-zinc-500 tracking-widest uppercase">{allProjects.length} projects · scroll to explore</span>
+              <svg width="20" height="28" viewBox="0 0 20 28" fill="none" className="text-zinc-500">
+                <rect x="1" y="1" width="18" height="26" rx="9" stroke="currentColor" strokeWidth="1.5" />
+                <motion.rect x="8.5" y="5" width="3" height="5" rx="1.5" fill="currentColor" animate={{ y: [0, 6, 0], opacity: [1, 0, 1] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} />
+              </svg>
+            </motion.div>
+          </motion.div>
         </div>
+
+        {/* Project slides */}
+        {allProjects.map((project, i) => (
+          <ProjectSlide
+            key={project.id}
+            project={project}
+            index={i}
+            total={allProjects.length}
+            containerRef={scrollRef}
+          />
+        ))}
       </div>
 
-      {/* Projects Grid */}
-      <div className="section-padding bg-muted/20">
-        <div className="container-padding">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedCategory + searchTerm}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-7xl mx-auto"
-            >
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -8 }}
-                  className="group"
-                >
-                  <Card className="glass-card h-full hover:shadow-glow transition-all duration-300">
-                    {/* Project Image Placeholder */}
-                    <div className="w-full h-64 md:h-72 lg:h-88 bg-gradient-to-br from-primary/20 to-accent/20 rounded-t-2xl overflow-hidden flex items-center justify-center">
-                      {project.image ? (
-                        <img
-                          src={project.image}
-                          alt={`${project.title} Demo`}
-                          className="w-full h-full object-fill"
-                        />
-                      ) : (
-                        <div className="w-16 h-16 bg-primary/30 rounded-2xl" />
-                      )}
-                    </div>
-
-                    <CardHeader>
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="text-xl font-semibold mb-2">
-                            {project.title}
-                          </h3>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <span>{project.role}</span>
-                            <span>•</span>
-                            <span>{project.period}</span>
-                          </div>
-                        </div>
-                        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          {project.liveUrl && (
-                            <Button size="icon" variant="ghost" asChild>
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <ExternalLink className="w-4 h-4" />
-                              </a>
-                            </Button>
-                          )}
-                          {project.repoUrl && (
-                            <Button size="icon" variant="ghost" asChild>
-                              <a
-                                href={project.repoUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Github className="w-4 h-4" />
-                              </a>
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </CardHeader>
-
-                    <CardContent>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
-                        {project.summary}
-                      </p>
-
-                      {/* Tech Stack */}
-                      <div className="mb-4">
-                        <div className="flex flex-wrap gap-2">
-                          {project.stack.map((tech) => (
-                            <Badge
-                              key={tech}
-                              variant="secondary"
-                              className="tech-chip p-3"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                      {/* 
-                      Key Outcomes
-                      <div>
-                        <h4 className="text-sm font-medium mb-2 text-primary">
-                          Key Outcomes:
-                        </h4>
-                        <ul className="text-sm text-muted-foreground space-y-1">
-                          {project.outcomes.slice(0, 2).map((outcome, idx) => (
-                            <li key={idx} className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-                              {outcome}
-                            </li>
-                          ))}
-                        </ul>
-                      </div> */}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Empty State */}
-          {filteredProjects.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16"
-            >
-              <h3 className="text-2xl font-semibold mb-2">No projects found</h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search or filter criteria
-              </p>
-            </motion.div>
-          )}
-        </div>
-      </div>
+      <style>{`
+        #projects > div::-webkit-scrollbar { display: none; }
+        @keyframes pjFloat {
+          0%,100% { transform:translateY(0) scale(1); }
+          50% { transform:translateY(-28px) scale(1.04); }
+        }
+      `}</style>
     </section>
   );
 }
