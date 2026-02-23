@@ -35,9 +35,8 @@ export const Navigation = () => {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-x-hidden ${
-    scrolled ? "glass shadow-lg" : ""
-  }`} // tthis above is the navbar's animation and onscroll behaviour
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-x-hidden ${scrolled ? "glass shadow-lg" : ""
+        }`} // tthis above is the navbar's animation and onscroll behaviour
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -48,7 +47,7 @@ export const Navigation = () => {
               className="flex items-center space-x-2"
             >
               <div className="w-10 h-10 bg-hero-gradient rounded-xl flex items-center justify-center text-background">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"  className="hover: scale-105"             >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="hover: scale-105"             >
                   <path d="M14.314 0L2.3 12 6 15.7 21.684.012h-7.357L14.314 0zm.014 11.072l-6.471 6.457 6.47 6.47H21.7l-6.46-6.468 6.46-6.46h-7.37z" />
                 </svg>
               </div>
@@ -244,7 +243,7 @@ export const Navigation = () => {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>  
+        </AnimatePresence>
       </div>
     </motion.nav>
   );

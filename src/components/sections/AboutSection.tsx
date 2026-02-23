@@ -82,7 +82,7 @@ export function AboutSection() {
                   </span>
                 </div>
 
-                <h3 className="text-3xl font-sora font-bold mb-6">
+                <h3 className="text-2xl md:text-3xl lg:text-4xl font-sora font-bold mb-6">
                   Working on multiple NxG <br /> trading applications                </h3>
 
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">

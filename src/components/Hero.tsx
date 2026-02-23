@@ -46,7 +46,7 @@ export const Hero = () => {
             className="mb-8 mt-3"
           >
             <motion.h1
-              className="text-5xl md:text-7xl lg:text-8xl font-sora font-bold mb-6"
+              className="text-4xl md:text-6xl lg:text-7xl font-sora font-bold mb-6"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.2 }}
@@ -102,12 +102,12 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="mb-12"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-sora font-semibold mb-6 leading-tight">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-sora font-semibold mb-6 leading-tight">
               Ship Flutter apps fast.{" "}
               <span className="gradient-text">Build full-stack features</span>{" "}
               that scale.
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               I design, develop, and optimize mobile experiences with Flutter
               and ship reliable backends with modern tooling.
             </p>

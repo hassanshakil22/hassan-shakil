@@ -124,8 +124,8 @@ const allProjects: Project[] = [
 function PhoneFrame({ videoSrc, gifSrc, accentColor, title, compact }: {
   videoSrc?: string; gifSrc?: string; accentColor: string; title: string; compact?: boolean;
 }) {
-  const w = compact ? 180 : 300;
-  const h = compact ? 350 : 580;
+  const w = compact ? 180 : 220;
+  const h = compact ? 350 : 430;
   const br = compact ? 28 : 40;
   const notchW = compact ? "28px" : "44px";
   const camSize = compact ? "5px" : "7px";
@@ -144,7 +144,7 @@ function PhoneFrame({ videoSrc, gifSrc, accentColor, title, compact }: {
         <div style={{ position: "absolute", top: "11px", left: "50%", transform: "translateX(-50%)", width: notchW, height: "4px", background: "#1a1a1a", borderRadius: "2px", zIndex: 10 }} />
         <div style={{ position: "absolute", top: "9px", right: camRight, width: camSize, height: camSize, background: "#111", borderRadius: "50%", border: "1px solid #2a2a2a", zIndex: 10 }} />
         <div style={{ position: "absolute", inset: screenInset, borderRadius: `${screenBr}px`, overflow: "hidden", background: "#000" }}>
-          <video src={videoSrc} autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+          <video src={videoSrc} autoPlay loop muted playsInline style={{ width: "100%", height: "100%", objectFit: "inherit", objectPosition: "center top", display: "block" }} />
         </div>
         <div style={{ position: "absolute", top: btnTop1, right: "-3px", width: "3px", height: btnH1, background: "#0f0f0f", borderRadius: "0 2px 2px 0" }} />
         <div style={{ position: "absolute", top: btnTop2, left: "-3px", width: "3px", height: btnH2, background: "#0f0f0f", borderRadius: "2px 0 0 2px" }} />
@@ -213,7 +213,7 @@ function ProjectSlide({
           animate={phase}
           variants={snapVariants}
           initial="hidden-below"
-          className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-8 md:px-16
+          className="relative z-10 w-full max-w-6xl mx-auto mt-20 px-4 sm:px-8 md:px-16
             flex flex-col md:flex-row items-center gap-6 md:gap-12 lg:gap-16"
         >
           {/* ── Media ── */}
@@ -345,7 +345,7 @@ export function ProjectsSection() {
           </div>
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="relative z-10">
 
-            <h2 className="text-5xl md:text-7xl font-black mb-6 text-white">My <span className="gradient-text">Personal Projects</span></h2>
+            <h2 className="text-3xl md:text-4xl font-black mb-6 text-white">My <span className="gradient-text">Personal Projects</span></h2>
             <p className="text-lg text-zinc-400 mb-10">Scroll down — each project snaps into view</p>
             <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }} className="flex flex-col items-center gap-2">
               <span className="text-xs text-zinc-500 tracking-widest uppercase">{allProjects.length} projects · scroll to explore</span>
