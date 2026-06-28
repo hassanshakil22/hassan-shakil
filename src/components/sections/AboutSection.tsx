@@ -13,14 +13,21 @@ const skills = {
   mobile: [
     "Flutter",
     "Dart",
+    "Jetpack Compose",
+    "Kotlin",
     "GetX",
     "Provider",
     "REST APIs",
     "Firebase",
-    "Jetpack Compose",
-    "Kotlin"
   ],
-  backend: ["Node.js", "Express", "Supabase", "Firebase", "REST APIs"],
+  backend: [
+    "Node.js",
+    "Express",
+    "FAST API",
+    "Supabase",
+    "Firebase",
+    "REST APIs",
+  ],
   data: ["Pandas", "NumPy", "SQL", "SnowFlake", "Apache Airflow", "AWS"],
   tools: ["Git", "CI/CD", "GitHub Actions", "VS Code"],
 };
@@ -78,19 +85,22 @@ export function AboutSection() {
                 <div className="flex items-center gap-3 mb-6">
                   <Briefcase className="w-6 h-6 text-primary" />
                   <span className="text-primary font-medium">
-                    Currently Working as a Flutter developer @Catalyst IT Solutions
+                    Currently Working as a Junior Android Developer at <br />  <a href="https://appetiser.com.au/" target="_blank" rel="noopener noreferrer">
+                      Appetiser Apps | ALL X LLC
+                    </a>
                   </span>
                 </div>
 
                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-sora font-bold mb-6">
-                  Working on multiple NxG <br /> trading applications                </h3>
+                  Working on multiple MVPs and <br /> Elastic Projects{" "}
+                </h3>
 
                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
                   <p>
-                    Currently serving as a Flutter Developer at   <strong className="text-foreground">
-                      CATALYST IT SOLUTIONS
-                    </strong> while concurrently leading multiple frontend projects
-                    from scratch at{" "}
+                    Currently serving as a Jr Android Developer at{" "}
+                    <strong className="text-foreground">Appetiser Apps</strong>{" "}
+                    while concurrently leading multiple frontend projects from
+                    scratch at{" "}
                     <strong className="text-foreground">
                       NEDUET CSIT DEPARTMENT
                     </strong>
@@ -100,22 +110,32 @@ export function AboutSection() {
 
                   <p>
                     My journey started with mobile app development using
-                    Flutter, but I'm actively expanding into full-stack
-                    development. I'm planning to take ownership of backend
-                    integration in different projects, combining my mobile
-                    expertise with server-side technologies.
+                    Flutter, but I have since transitioned into{" "}
+                    <strong className="text-foreground">
+                      Native Android development
+                    </strong>
+                    . Alongside this, I am expanding into full-stack engineering
+                    to seamlessly integrate my mobile expertise with robust,
+                    server-side technologies.
                   </p>
 
                   <p>
-                    I have a strong interest in <strong> Data Engineering</strong>, <strong>cloud technologies</strong>, <strong>security</strong>,
-                    and <strong>building scalable systems</strong>. My goal is to become a
-                    versatile developer who can handle the entire software
-                    development lifecycle.
+                    I have a strong interest in{" "}
+                    <strong> Data Engineering</strong>,{" "}
+                    <strong>cloud technologies</strong>,{" "}
+                    <strong>Cybersecurity</strong>,{" "}
+                    <strong>security</strong>, and{" "}
+                    <strong>building scalable systems</strong>. My goal is to
+                    become a versatile developer who can handle the entire
+                    software development lifecycle.
                   </p>
                 </div>
 
                 <div className="mt-8">
-                  <Button className="btn-primary" onClick={() => window.open("Hassan's CV.pdf", "_blank")}>
+                  <Button
+                    className="btn-primary"
+                    onClick={() => window.open("Hassan's CV.pdf", "_blank")}
+                  >
                     <Download className="mr-2 w-4 h-4" />
                     Download CV
                   </Button>
